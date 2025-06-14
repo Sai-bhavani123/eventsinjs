@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Events + Create/Remove + Theme</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dark-theme {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    .box, .new-box {
+      padding: 20px;
+      margin: 10px 0;
+      background-color: lightgray;
+      border-radius: 5px;
+    }
+
+    .new-box {
+      background-color: lightblue;
+    }
+
+    #output {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🌐 JavaScript All Event Types + Actions</h2>
+
+  <!-- Action Buttons -->
+  <button class="btn" onclick="createElement()">Create Element</button>
+  <button class="btn" onclick="removeElement()">Remove Element</button>
+  <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
+
+  <!-- Mouse Box -->
+  <div class="box" id="mouseBox">Mouse Over / Click Me</div>
+
+  <!-- Input Events -->
+  <input type="text" id="textInput" placeholder="Type here..." />
+  
+  <!-- Keyboard Events -->
+  <input type="text" id="keyboardInput" placeholder="Press any key..." />
+
+  <!-- Form Events -->
+  <form id="demoForm">
+    <input type="text" id="formInput" placeholder="Form input" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Clipboard Events -->
+  <input type="text" id="clipboardInput" placeholder="Copy or Paste here" />
+
+  <!-- Output -->
+  <div id="output">Output will appear here...</div>
+
+  <script>
+    const output = document.getElementById("output");
+
+    // Create Element
+    function createElement() {
+      const newDiv = document.createElement('div');
+      newDiv.textContent = "✅ I'm a new element!";
+      newDiv.className = 'new-box';
+      
+      newDiv.addEventListener('mouseover', () => {
+        newDiv.style.backgroundColor = 'orange';
+        output.textContent = 'Mouse over new element';
+      });
+
+      newDiv.addEventListener('mouseout', () => {
+        newDiv.style.backgroundColor = 'lightblue';
+        output.textContent = 'Mouse out from new element';
+      });
+
+      document.body.appendChild(newDiv);
+    }
+
+    // Remove Element
+    function removeElement() {
+      const box = document.querySelector('.new-box');
+      if (box) {
+        box.remove();
+        output.textContent = 'Element removed';
+      } else {
+        output.textContent = 'No element to remove';
+      }
+    }
+
+    // Toggle Theme
+    function toggleTheme() {
+      document.body.classList.toggle("dark-theme");
+      output.textContent = "🌗 Theme toggled!";
+    }
+
+    // Mouse Events on box
+    const mouseBox = document.getElementById("mouseBox");
+    mouseBox.addEventListener("click", () => {
+      output.textContent = "🖱️ Mouse Clicked!";
+    });
+    mouseBox.addEventListener("mouseover", () => {
+      mouseBox.style.background = "orange";
+      output.textContent = "🖱️ Mouse Over!";
+    });
+    mouseBox.addEventListener("mouseout", () => {
+      mouseBox.style.background = "lightgray";
+      output.textContent = "🖱️ Mouse Out!";
+    });
+    mouseBox.addEventListener("touchstart", () => {
+      output.textContent = "👆 Touch Start Detected!";
+    });
+
+    // Input Event
+    document.getElementById("textInput").addEventListener("input", function () {
+      output.textContent = "⌨️ You typed: " + this.value;
+    });
+
+    // Keyboard Events
+    const keyInput = document.getElementById("keyboardInput");
+    keyInput.addEventListener("keydown", (e) => {
+      output.textContent = "🔡 Key Down: " + e.key;
+    });
+    keyInput.addEventListener("keyup", (e) => {
+      output.textContent = "🔡 Key Up: " + e.key;
+    });
+
+    // Form Events
+    const form = document.getElementById("demoForm");
+    const formInput = document.getElementById("formInput");
+    formInput.addEventListener("input", () => {
+      output.textContent = "📝 Typing in form: " + formInput.value;
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      output.textContent = "📤 Form submitted: " + formInput.value;
+    });
+
+    // Clipboard Events
+    const clipboardInput = document.getElementById("clipboardInput");
+    clipboardInput.addEventListener("copy", () => {
+      output.textContent = "📋 Copied!";
+    });
+    clipboardInput.addEventListener("paste", () => {
+      output.textContent = "📋 Pasted!";
+    });
+
+    // Window Events
+    window.addEventListener("load", () => {
+      console.log("🌍 Page Loaded");
+    });
+
+    window.addEventListener("resize", () => {
+      output.textContent = "🔁 Window Resized!";
+    });
+  </script>
+</body>
+</html>
